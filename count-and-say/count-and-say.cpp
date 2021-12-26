@@ -7,9 +7,9 @@ public:
       for(int i=3;i<=n;i++)
       {
         string t="";
-        s=s+' ';
+        
         int c=1;
-        for(int j=1;j<s.size();j++){
+        for(int j=1;j<=s.size();j++){
           if(s[j]!=s[j-1]){
             t=t+to_string(c);
             t=t+s[j-1];
