@@ -1,5 +1,5 @@
 # Max Sum Subarray of size K
-## Basic 
+## Easy
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array of integers Arr of size <strong>N</strong> and a number <strong>K</strong>. Return&nbsp;the maximum sum of a subarray of size K.</span></p>
 
