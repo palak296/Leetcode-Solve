@@ -7,12 +7,12 @@ public:
       {
         sum+=nums[i];
         while(sum>=target){
-          mn=min(mn,i-s);
+          mn=min(mn,i-s+1);
           sum=sum-nums[s++];
         }
           
       }
-       return mn == INT_MAX ? 0 : mn+1;
+       return mn == INT_MAX ? 0 : mn;
       
     }
 };
