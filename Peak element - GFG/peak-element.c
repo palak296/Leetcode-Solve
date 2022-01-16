@@ -8,16 +8,20 @@
  // } Driver Code Ends
 //User function Template for C
 
-int peakElement(int arr[], int n)
+int peakElement(int num[], int n)
 {
    // Your code here
-   int ans=0;
-   for(int i=1;i<n;i++)
-   {
-       if(arr[i]>arr[i-1])
-       ans =i;
-   }
-   return ans;
+    int low = 0, high = n- 1;
+        while (low < high - 1) {
+            int mid = (low + high) / 2;
+            if (num[mid] > num[mid - 1] && num[mid] > num[mid + 1]) 
+                return mid;
+            else if (num[mid] > num[mid + 1]) 
+                    high = mid - 1;
+                 else 
+                    low = mid + 1;    
+        }
+        return num[low] > num[high] ? low : high;
 }
 
 // { Driver Code Starts.
