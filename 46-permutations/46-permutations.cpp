@@ -2,12 +2,12 @@
       class Solution {
 public:
 
-  void find( int ind, vector<int>& nums, set<vector<int>>& s)
+  void find( int ind, vector<int>& nums, vector<vector<int>>& s)
   {    
       int n=nums.size();
       if(ind==n)
       {
-        s.insert(nums);
+        s.push_back(nums);
       }
     for(int i=ind;i<n;i++)
     {
@@ -22,14 +22,11 @@ public:
   }
     vector<vector<int>> permute(vector<int>& nums) 
     {
-      vector<vector<int>>ans;
-      set<vector<int>>s;
+      vector<vector<int>>s;
+      
       find(0,nums,s);
-      for(auto x: s)
-      {
-        ans.push_back(x);
-      }
-      return ans;
+      
+      return s;
       
     }
 };
