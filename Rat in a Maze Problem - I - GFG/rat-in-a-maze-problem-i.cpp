@@ -10,50 +10,50 @@ using namespace std;
 
 class Solution{
     public:
-    void find(int i, int j, vector<vector<int>>&m , int n,vector<string>&ans, string move, vector<vector<int>>&vis)
+    void find(int row, int col, vector<vector<int>> &m, int n, vector<vector<int>> &vis, vector<string>&ans, string move)
     {
-        if(i==n-1 and j==n-1)
+        if(row==n-1 and col==n-1)
         {
             ans.push_back(move);
             return;
         }
         //downward
-        if(i+1<n and !vis[i+1][j] and m[i+1][j]==1)
+        if(row+1<n and !vis[row+1][col] and m[row+1][col]==1)
         {
-            vis[i+1][j]=1;
-            find(i+1,j,m,n,ans,move+'D',vis);
-            vis[i+1][j]=0;
+            vis[row+1][col]=1;
+            find(row+1,col,m,n,vis,ans,move+'D');
+            vis[row+1][col]=0;
         }
         //left
-        if(j-1>=0 and !vis[i][j-1] and m[i][j-1]==1)
+        if(col-1>=0 and !vis[row][col-1] and m[row][col-1]==1)
         {
-            vis[i][j-1]=1;
-            find(i,j-1,m,n,ans,move+'L',vis);
-            vis[i][j-1]=0;
+            vis[row][col-1]=1;
+            find(row,col-1,m,n,vis,ans,move+'L');
+            vis[row][col-1]=0;
         }
         //right
-        if(j+1<n and !vis[i][j+1] and m[i][j+1]==1)
+       if(col+1<n and !vis[row][col+1] and m[row][col+1]==1)
         {
-            vis[i][j+1]=1;
-            find(i,j+1,m,n,ans,move+'R',vis);
-            vis[i][j+1]=0;
+            vis[row][col+1]=1;
+            find(row,col+1,m,n,vis,ans,move+'R');
+            vis[row][col+1]=0;
         }
-        //upward
-        if(i-1>=0 and !vis[i-1][j] and m[i-1][j]==1)
+        //up
+        if(row-1>=0 and !vis[row-1][col] and m[row-1][col]==1)
         {
-            vis[i-1][j]=1;
-            find(i-1,j,m,n,ans,move+'U',vis);
-            vis[i-1][j]=0;
+            vis[row-1][col]=1;
+            find(row-1,col,m,n,vis,ans,move+'U');
+            vis[row-1][col]=0;
         }
-        
-    } 
-    vector<string> findPath(vector<vector<int>> &m, int n) {
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) 
+    {
         // Your code goes here
-        vector<string>ans;
-        vector<vector<int>>vis(n,vector<int>(n,0));
-        vis[0][0]=1;
-        if(m[0][0]==1) find(0,0,m,n,ans,"",vis);
-        return ans;
+         vector<vector<int>> vis(n,vector<int>(n,0));
+         vector<string>ans;
+         vis[0][0]=1;
+         if(m[0][0]==1) find(0,0,m,n,vis,ans,"");
+         return ans;
     }
 };
 
