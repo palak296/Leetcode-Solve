@@ -1,19 +1,18 @@
 class Solution {
 public:
     bool isValid(string s) {
-     
-    stack<char> temp;
-    map<char, char> m = { {']','['},{')','('},{'}','{'} };
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == '[' || s[i] == '(' || s[i] == '{')
-            temp.push(s[i]);
-        else if (s[i] == ']' || s[i] == ')' || s[i] == '}')
+       stack<char>stk;
+        for(int i=0;i<s.size();i++)
         {
-            if (temp.empty()||temp.top() != m[s[i]]) return false;
-            else temp.pop();
+            if(stk.size()>0&&stk.top()=='('&&s[i]==')')
+                stk.pop();
+            else if(stk.size()>0&&stk.top()=='['&&s[i]==']')
+                stk.pop();
+            else if(stk.size()>0&&stk.top()=='{'&&s[i]=='}')
+                stk.pop();
+            else
+                stk.push(s[i]);
         }
-    }
-    return temp.empty();
-
+        return !stk.size();
     }
 };
