@@ -3,7 +3,7 @@ public:
     int findDuplicate(vector<int>& nums) {
         for(int i=0;i<nums.size();i++)
         {
-           int index = abs(nums[i]) - 1;
+           int index = abs(nums[i]) ;
             
            
             nums[index] *= -1;
