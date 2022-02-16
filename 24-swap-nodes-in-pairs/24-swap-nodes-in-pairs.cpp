@@ -1,3 +1,4 @@
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -11,12 +12,10 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-     
-      if(head==NULL or head->next==NULL) return head;
-      ListNode* dummy=new ListNode();
-      dummy->val=0;
+     ListNode* dummy=new ListNode();
       ListNode* p=dummy;
       ListNode* c=head;
+      if(head==NULL or head->next==NULL) return head;
       while(c and c->next)
       {
         p->next=c->next;
@@ -24,6 +23,8 @@ public:
         p->next->next=c;
         c=c->next;
         p=p->next->next;
+       
+        
         
       }
       return dummy->next;
