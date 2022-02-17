@@ -1,28 +1,30 @@
 class Solution {
 public:
-  void find(int i, int t, vector<vector<int>>&v, vector<int>&ds, vector<int>&c)
+    vector<vector<int>> combinationSum(vector<int>& c, int t) {
+        vector<vector<int>>ans;
+      vector<int>v;
+      func(c,t,ans,v,0);
+     return ans;
+    }
+  void func(vector<int>& c,int t, vector<vector<int>>&ans ,vector<int>& v, int i)
   {
     if(i==c.size())
     {
       if(t==0)
       {
-        v.push_back(ds);
+        ans.push_back(v);
+        
       }
       return;
     }
+    
     if(c[i]<=t)
     {
-      ds.push_back(c[i]);
-      find(i,t-c[i],v,ds,c);
-      ds.pop_back();
+      v.push_back(c[i]);
+      func(c,t-c[i],ans,v,i);
+        v.pop_back();
     }
-    find(i+1,t,v,ds,c);
+    func(c,t,ans,v,i+1);
     
   }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>>v;
-      vector<int>ds;
-      find(0,target,v,ds,candidates);
-      return v;
-    }
 };
