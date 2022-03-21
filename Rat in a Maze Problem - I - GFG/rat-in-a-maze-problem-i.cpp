@@ -10,50 +10,60 @@ using namespace std;
 
 class Solution{
     public:
-    void find(int row, int col, vector<vector<int>> &m, int n, vector<vector<int>> &vis, vector<string>&ans, string move)
-    {
-        if(row==n-1 and col==n-1)
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        // Your code goes here
+        
+        vector<vector<int> > vis( n , vector<int> (n, 0)); 
+        vis[0][0]=1;
+        vector<string>ans;
+        
+        if(m[0][0]==1) maze(0,0,vis,n,m,ans,"");
+        return ans;
+    }
+    void maze(int i, int j, vector<vector<int>>& vis, int n, vector<vector<int>>& m,vector<string>& ans,string s){
+        if(i==n-1 and j==n-1)
         {
-            ans.push_back(move);
+           
+            ans.push_back(s);
+            
             return;
         }
-        //downward
-        if(row+1<n and !vis[row+1][col] and m[row+1][col]==1)
+       
+        //up
+       
+       
+        //down
+        if(i+1<n and !vis[i+1][j] and m[i+1][j]==1)
         {
-            vis[row+1][col]=1;
-            find(row+1,col,m,n,vis,ans,move+'D');
-            vis[row+1][col]=0;
+            
+            vis[i+1][j]=1;
+            maze(i+1,j,vis,n,m,ans,s+'D');
+            vis[i+1][j]=0;
         }
         //left
-        if(col-1>=0 and !vis[row][col-1] and m[row][col-1]==1)
+        if(j-1>=0 and !vis[i][j-1] and m[i][j-1]==1)
         {
-            vis[row][col-1]=1;
-            find(row,col-1,m,n,vis,ans,move+'L');
-            vis[row][col-1]=0;
+            
+            vis[i][j-1]=1;
+            maze(i,j-1,vis,n,m,ans,s+'L');
+            vis[i][j-1]=0;
         }
         //right
-       if(col+1<n and !vis[row][col+1] and m[row][col+1]==1)
+        if(j+1<n and !vis[i][j+1] and m[i][j+1]==1)
         {
-            vis[row][col+1]=1;
-            find(row,col+1,m,n,vis,ans,move+'R');
-            vis[row][col+1]=0;
+            
+            vis[i][j+1]=1;
+            maze(i,j+1,vis,n,m,ans,s+'R');
+            vis[i][j+1]=0;
         }
-        //up
-        if(row-1>=0 and !vis[row-1][col] and m[row-1][col]==1)
+         if(i-1>=0  and !vis[i-1][j] and m[i-1][j]==1)
         {
-            vis[row-1][col]=1;
-            find(row-1,col,m,n,vis,ans,move+'U');
-            vis[row-1][col]=0;
+            
+            vis[i-1][j]=1;
+            maze(i-1,j,vis,n,m,ans,s+'U');
+             vis[i-1][j]=0;
+            
         }
-    }
-    vector<string> findPath(vector<vector<int>> &m, int n) 
-    {
-        // Your code goes here
-         vector<vector<int>> vis(n,vector<int>(n,0));
-         vector<string>ans;
-         vis[0][0]=1;
-         if(m[0][0]==1) find(0,0,m,n,vis,ans,"");
-         return ans;
     }
 };
 
