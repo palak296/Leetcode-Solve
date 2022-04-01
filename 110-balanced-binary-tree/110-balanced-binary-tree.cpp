@@ -19,9 +19,9 @@ public:
   int check(TreeNode* root){
     if(root==NULL) return 0;
     int l=check(root->left);
-    if(l==-1) return -1;
+   
     int r=check(root->right);
-    if(r==-1) return -1;
+    if(l==-1 or r==-1) return -1;
     if(abs(l-r)>1) return -1;
     return max(l,r)+1;
   }
