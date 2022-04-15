@@ -11,19 +11,20 @@
  */
 class Solution {
 public:
+     
     int maxPathSum(TreeNode* root) {
-      int sum=INT_MIN;
-        cb(root,sum);
-     return sum;
+      int maxi=INT_MIN;
+        func(root,maxi);
+      return maxi;
     }
-  int cb(TreeNode* root, int &sum)
+  int func(TreeNode* root, int &maxi)
   {
-    if(root==NULL)
-      return 0;
-    int lh=max(0,cb(root->left,sum));
-    int rh=max(0,cb(root->right,sum));
-    sum=max(sum,lh+rh+root->val);
-    return (root->val+max(lh,rh));
-    
+     if(root==NULL) return 0;
+   
+      int l=max(0,func(root->left,maxi));
+      int r=max(0,func( root->right,maxi));
+      
+      maxi=max(maxi,root->val+l+r);
+      return root->val+max(l,r);
   }
 };
