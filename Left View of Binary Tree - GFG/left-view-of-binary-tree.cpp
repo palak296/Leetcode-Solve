@@ -130,25 +130,25 @@ struct Node
 vector<int> leftView(Node *root)
 {
    // Your code here
-   queue<pair<Node*,int>> q;
+   vector<int>v;
    map<int,int>mp;
-   vector<int>ans;
-   if(root==NULL) return ans;
-   q.push({root,0});
-   //int c=0;
+   queue<pair<int,Node*>>q;
+   if(root)
+   q.push({0,root});
    while(!q.empty())
    {
        auto p=q.front();
-       Node* nn=p.first;
-       int c=p.second;
+       int y=p.first;
+       Node* node=p.second;
        q.pop();
-       if(nn->left) q.push({nn->left,c+1});
-       if(nn->right) q.push({nn->right,c+1});
-       if(mp[c]==0) mp[c]=nn->data;
+       if(mp.find(y)==mp.end()) mp[y]=node->data;
+       if(node->left) q.push({y+1,node->left});
+       if(node->right) q.push({y+1,node->right});
+       
    }
    for(auto it: mp)
    {
-       ans.push_back(it.second);
+       v.push_back(it.second);
    }
-   return ans;
+   return v;
 }
