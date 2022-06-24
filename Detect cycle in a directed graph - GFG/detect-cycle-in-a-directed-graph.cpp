@@ -5,40 +5,37 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-  bool cyclepresent(int i,vector<int>&visited,vector<int>&dfsvis,vector<int>adj[])
-    {
-        visited[i]=1;
-        dfsvis[i]=1;
-        
-        for(auto u:adj[i])
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        vector<int>id(V,0);
+        queue<int> q;
+        for(int i=0;i<V;i++)
         {
-            if(!visited[u])
+            for(auto it: adj[i])
             {
-              if(cyclepresent(u,visited,dfsvis,adj))
-                   return true;
+                id[it]++;
             }
-            else if(dfsvis[u])
-                   return true;
         }
-        dfsvis[i]=0;
-        return false;
-    }
-    
-    
-    bool isCyclic(int V, vector<int> adj[]) 
-    {
-        vector<int>visited(V,0);
-        vector<int>dfsvis(V,0);
-    
-       for(int i=0;i<V;i++)
-       {
-          if(!visited[i])
-          {
-             if(cyclepresent(i,visited,dfsvis,adj))
-             return true;
-          }
-       }
-       return false;
+        for(int i=0;i<id.size();i++)
+        {
+            if(id[i]==0)
+            q.push(i);
+        }
+        int c=0;
+        while(!q.empty())
+        {
+            int n=q.front();
+            q.pop();
+            c++;
+            for(auto it: adj[n])
+            {
+                id[it]--;
+                if(id[it]==0) q.push(it);
+            }
+        }
+        if(V==c) return false;
+        return true;
     }
 };
 
