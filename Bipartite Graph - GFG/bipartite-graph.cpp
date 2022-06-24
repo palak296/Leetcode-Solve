@@ -5,38 +5,33 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-	bool isBipartite(int v, vector<int>adj[]){
-	     vector<int> vis(v, -1);
-	     for(int i=0;i<v;i++)
+bool dfs(vector<int> adj[], vector<int> &vis, int i)
+{
+    if(vis[i]==-1)vis[i] = 0;
+    for (auto it : adj[i])
+    {
+        if (vis[it] == -1)
         {
-            if(vis[i]==-1)
-            {
-                vis[i]=1;
-        
-                queue<int> q;
-                q.push(i);
-                while(!q.empty())
-                {
-                    int u=q.front();
-                    q.pop();
-                    //checking self loop
-                    for(int j:adj[u])
-                    {
-                        //if color is not assigned then do it
-                        if(vis[j]==-1)
-                        {
-                            vis[j]=vis[u]?0:1;
-                            q.push(j);
-                        }
-                        else if(vis[j]==vis[u])
-                            return false;
-                    }
-                    
-                }
-            }
-                 
+            vis[it] = 1 - vis[i];
+            if (!dfs(adj, vis, it))
+                return false;
         }
-        return true;
+        else if (vis[it] == vis[i])
+            return false;
+    }
+    return true;
+}
+	bool isBipartite(int v, vector<int>adj[]){
+	    vector<int> vis(v, -1);
+    for (int i = 0; i < v; i++)
+    {
+        if (vis[i] == -1)
+        {
+            if (!dfs(adj, vis, i))
+                return false;
+        }
+    }
+    return true;
 	}
 
 };
