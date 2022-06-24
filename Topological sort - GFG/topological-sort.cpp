@@ -10,35 +10,34 @@ class Solution
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
-	    queue<int>q;
-	    vector<int>id(V,0);
-	    
-	    for(int i=0;i<V;i++)
-	    {
-	        for(auto it: adj[i])
-	        {
-	            id[it]++;
-	        }
-	    }
-	    for(int i=0;i<V;i++)
-	    {
-	        if(id[i]==0)
-	        q.push(i);
-	    }
-	    vector<int>v;
-	    while(!q.empty())
-	    {
-	        int n=q.front();
-	        q.pop();
-	        v.push_back(n);
-	        for(auto it: adj[n])
-	        {
-	            id[it]--;
-	            if(id[it]==0) q.push(it);
-	             
-	        }
-	    }
-	    return v;
+	    vector<int> id(V, 0);
+    queue<int> q;
+    for (int i = 0; i < V; i++)
+    {
+        for (auto it : adj[i])
+        {
+            id[it]++;
+        }
+    }
+    for (int i = 0; i < id.size(); i++)
+    {
+        if (id[i] == 0)
+            q.push(i);
+    }
+    vector<int> t;
+    while (!q.empty())
+    {
+        int n = q.front();
+        q.pop();
+        t.push_back(n);
+        for (auto it : adj[n])
+        {
+            id[it]--;
+            if (id[it] == 0)
+                q.push(it);
+        }
+    }
+    return t;
 	}
 };
 
