@@ -10,31 +10,23 @@ class Solution {
         // Code here
         vector<int>bfs;
         vector<int>vis(V,0);
-        
-       
-                queue<int>q;
-                q.push(0);
-                vis[0]=-1;
-                while(!q.empty())
-                {
-                    bfs.push_back(q.front());
-                   
-                    int n=q.front();
-                    vis[n]=-1;
-                    q.pop();
-                    for(auto it: adj[n])
-                    {
-                        if(vis[it]==0){
-                        q.push(it);
-                        vis[it]=-1;
-                    
-                    }
-                    }
+        queue<int>q;
+        q.push(0);
+        while(!q.empty())
+        {
+            int n=q.front();
+            bfs.push_back(n);
+            q.pop();
+            for(auto it: adj[n])
+            {
+                if(vis[it]==0) {
+                    vis[it]=1;
+                    q.push(it);
                 }
-             return bfs;
+            }
         }
-       
-
+        return bfs;
+    }
 };
 
 // { Driver Code Starts.
