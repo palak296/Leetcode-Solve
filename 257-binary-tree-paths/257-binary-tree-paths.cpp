@@ -11,22 +11,23 @@
  */
 class Solution {
 public:
-   
-    vector<string> binaryTreePaths(TreeNode* root) {
-      vector<string>v;
-       string s=to_string(root->val);
-      func(root,s,v);
-      return v;
+   void binaryTreePaths(vector<string>& result, TreeNode* root, string t) {
+    if(!root->left && !root->right) {
+        result.push_back(t);
+        return;
     }
-  void func(TreeNode* root, string s,vector<string>&v)
-  {
-     if(root->left==NULL and root->right==NULL) {v.push_back(s); return;}
-   
+
+    if(root->left) binaryTreePaths(result, root->left, t + "->" + to_string(root->left->val));
+    if(root->right) binaryTreePaths(result, root->right, t + "->" + to_string(root->right->val));
+}
+
+vector<string> binaryTreePaths(TreeNode* root) {
+    vector<string> result;
+    if(!root) return result;
     
-    if(root->left) func(root->left,s+"->"+to_string(root->left->val), v);
-     
-    if(root->right) func(root->right,s+"->"+to_string(root->right->val),v);
-      
+    binaryTreePaths(result, root, to_string(root->val));
+    return result;
+}
     
-  }
 };
+
