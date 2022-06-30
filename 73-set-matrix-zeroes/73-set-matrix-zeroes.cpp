@@ -1,36 +1,20 @@
 class Solution {
 public:
-    void setZeroes(vector<vector<int>>& m) {
-        int r=m.size();
-        int c=m[0].size();
-        vector<int>row(r,-1);
-        vector<int>col(c,-1);
-        for(int i=0;i<r;i++)
-        {
-            for(int j=0;j<c;j++)
-            {
-                if(m[i][j]==0)
-                {   row[i]=0; col[j]=0;}
-            }
-        }
-        for(int i=0;i<r;i++) cout<<row[i]<<" ";
-            cout<<endl;
-          for(int i=0;i<c;i++) cout<<col[i]<<" ";
-        for(int i=0;i<r;i++)
-        {
-            if(row[i]==0){
-                for(int j=0;j<c;j++){
-                    m[i][j]=0;
-                }
-            }
-        }
-        for(int i=0;i<c;i++)
-        {
-            if(col[i]==0){
-                for(int j=0;j<r;j++){
-                    m[j][i]=0;
-                }
-            }
-        }
+    void setZeroes(vector<vector<int>>& matrix) {
+        int col0 = 1, rows = matrix.size(), cols = matrix[0].size();
+
+    for (int i = 0; i < rows; i++) {
+        if (matrix[i][0] == 0) col0 = 0;
+        for (int j = 1; j < cols; j++)
+            if (matrix[i][j] == 0)
+                matrix[i][0] = matrix[0][j] = 0;
+    }
+
+    for (int i = rows - 1; i >= 0; i--) {
+        for (int j = cols - 1; j >= 1; j--)
+            if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                matrix[i][j] = 0;
+        if (col0 == 0) matrix[i][0] = 0;
+    }
     }
 };
