@@ -1,17 +1,17 @@
 class Solution {
 public:
-    void rotate(vector<vector<int>>& m) {
-      int n=m.size();
-        for(int i=0;i<n;i++)
+    void rotate(vector<vector<int>>& matrix) {
+        for(int i=0;i<matrix.size();i++)
         {
-          for(int j=0;j<i;j++)
-          {
-            swap(m[i][j],m[j][i]);
-          }
+            for(int j=i;j<matrix[0].size();j++)
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
         }
-      for(int i=0;i<n;i++)
-      {
-        reverse(m[i].begin(),m[i].end());
-      }
+        
+        for(int i=0;i<matrix.size();i++)
+        {
+            reverse(matrix[i].begin(),matrix[i].end());
+        }
     }
 };
