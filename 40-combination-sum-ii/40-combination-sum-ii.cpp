@@ -1,34 +1,39 @@
 class Solution {
 public:
-  void find(int i, int target, vector<int>&c, set<vector<int>>&ans, vector<int>&ds){
-    if(i==c.size()){
-      if(target==0){
-        ans.insert(ds);
-      }
-      return ;
+    vector<vector<int>> combinationSum2(vector<int>& c, int target) {
+        sort(c.begin(),c.end());
+            set<vector<int>>ans;
+        vector<int>ds;
+        int n=c.size();
+        cal(c,target,0,ds,n,ans);
+        vector<vector<int>>v;
+        for(auto it: ans)
+        {
+            v.push_back(it);
+        }
+        return v;
     }
-    if(c[i]<=target){
-      ds.push_back(c[i]);
-      find(i+1,target-c[i],c,ans,ds);
-      ds.pop_back();
-    }
-    int next_index = i;
+    
+     void cal(vector<int>&c, int target, int i, vector<int>&ds,int n, set<vector<int>>&ans)
+    {
+         if(i==n){
+       if(target==0) {
+           ans.insert(ds);
+           
+       }
+             return;
+         }
+        if(target<0) return;
+           
+       
+        ds.push_back(c[i]);
+        cal(c,target-c[i],i+1,ds,n,ans);
+        ds.pop_back();
+         int next_index = i;
         while (next_index < c.size() && c[next_index] == c[i])
             next_index++;
-    find(next_index,target,c,ans,ds);
-   // ans.assign(a.begin(), a.end());
-  }  
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        set<vector<int>>ans;
-              vector<vector<int> > v;
-
-      vector<int>ds;
-              sort(candidates.begin(),candidates.end());
-
-      find(0,target,candidates,ans,ds);
-      for(auto x: ans) {
-            v.push_back(x);
-        }
-      return v;
+        cal(c,target,next_index,ds,n,ans);
     }
 };
+
+   
