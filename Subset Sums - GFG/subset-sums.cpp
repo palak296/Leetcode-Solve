@@ -6,25 +6,25 @@ using namespace std;
 class Solution
 {
 public:
-void find(int i, int sum , vector<int>&a, vector<int>&arr, int n)
-{
-    if(i==n){
-        a.push_back(sum);
-        return;
-    }
-    
-    find(i+1,sum+arr[i],a,arr,n);
-   // sum-=arr[i];
-    find(i+1,sum,a,arr,n);
-}
-    vector<int> subsetSums(vector<int> arr, int n)
+    vector<int> subsetSums(vector<int> arr, int N)
     {
         // Write Your Code here
+        vector<int>v;
+        int sum=0;
+        cal(arr,0,v,sum,N);
+        return v;
         
-        vector<int>a;
-        find(0,0,a,arr,n);
-        sort(a.begin(),a.end());
-        return a;
+    }
+    void cal(vector<int>&arr, int i, vector<int>&v, int sum, int N)
+    {
+        if(i==N)
+        {
+            v.push_back(sum);
+            return;
+        }
+        cal(arr,i+1,v,sum+arr[i],N);
+        cal(arr,i+1,v,sum,N);
+        
     }
 };
 
