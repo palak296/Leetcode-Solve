@@ -1,7 +1,31 @@
 class Solution {
 public:
-  
-  bool safe(int row, int col, vector<vector<string>>&ans, vector<string>&ds, int n)
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>matrix;
+        string s(n,'.');
+        vector<string>v(n);
+        for(int i=0;i<n;i++)
+        {
+            v[i]=s;
+        }
+        cal(matrix,v,0,n);
+        return matrix;
+    }
+    void cal(vector<vector<string>>&ans, vector<string>&ds, int col,int n)
+    {
+        if(col==n){
+            ans.push_back(ds);
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(safe(i,col,ds,n)){
+                ds[i][col]='Q';
+                cal(ans,ds,col+1,n);
+                ds[i][col]='.';
+            }
+        }
+    }
+    bool safe(int row, int col, vector<string>&ds, int n)
   {
     int rr=row;
     int cc=col;
@@ -27,36 +51,4 @@ public:
     return true;
     
   }
-  void find(int col, int n, vector<string>&ds, vector<vector<string>>&ans)
-  {
-    if(col==n)
-    {
-      ans.push_back(ds);
-      return;
-    }
-    for(int i=0;i<n;i++)
-    {
-      if(safe(i,col,ans,ds,n))
-      {
-        ds[i][col]='Q';
-        find(col+1,n,ds,ans);
-        ds[i][col]='.';
-      }
-    
-        
-    }
-    
-  }
-    vector<vector<string>> solveNQueens(int n) {
-        vector<vector<string>>ans;
-      string s(n,'.');
-      vector<string>ds(n);
-      for(int i=0;i<n;i++)
-      {
-        ds[i]=s;
-      }
-      find(0,n,ds,ans);
-      return ans;
-      
-    }
 };
