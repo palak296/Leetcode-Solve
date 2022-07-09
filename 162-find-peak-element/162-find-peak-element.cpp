@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int findPeakElement(const vector<int> &num) {
-        int low = 0, high = num.size() - 1;
+    int findPeakElement(vector<int>& num) {
+         int low = 0, high = num.size() - 1;
         while (low < high - 1) {
             int mid = (low + high) / 2;
             if (num[mid] > num[mid - 1] && num[mid] > num[mid + 1]) 
