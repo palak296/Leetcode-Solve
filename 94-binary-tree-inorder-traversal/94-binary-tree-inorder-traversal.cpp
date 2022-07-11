@@ -11,16 +11,37 @@
  */
 class Solution {
 public:
-  void in(vector<int>&v, TreeNode* root)
-  {
-    if(root==NULL) return ;
-    in(v,root->left);
-    v.push_back(root->val);
-    in(v,root->right);
-  }
-    vector<int> inorderTraversal(TreeNode* root) {
-      vector<int>v;
-        in(v,root);
-      return v;
+    vector<int> inorderTraversal(TreeNode* root) 
+    {
+        //morris traversal
+        
+        vector<int>v;
+        TreeNode* cur=root;
+        while(cur!=NULL)
+        {
+            if(cur->left==NULL)
+            {    v.push_back(cur->val);
+             cur=cur->right;
+             }
+            else{
+                TreeNode* prev=cur->left;
+                while(prev->right!=NULL and prev->right!=cur)
+                {
+                    prev=prev->right;
+                }
+                if(prev->right==NULL){
+                    prev->right=cur; cur=cur->left;
+                }
+                else 
+                {
+                    v.push_back(cur->val);
+                    prev->right=NULL;
+                    cur=cur->right;
+                }
+                    
+            }
+        
+        }
+            return v;
     }
 };
