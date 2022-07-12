@@ -1,5 +1,5 @@
 /**
- * Definition for a binary tree node.m
+ * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
@@ -12,31 +12,30 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        map<int,map<int,multiset<int>>> m;
-        queue<pair<TreeNode*,pair<int,int>>> q;
-        q.push({root,{0,0}});
-        while(!q.empty()){
-            auto p=q.front();
-           TreeNode* node=p.first;
-            q.pop();
-            int x=p.second.first, y=p.second.second;
-            m[x][y].insert(node->val);
-            
-                if(node->left) q.push({node->left,{x-1,y+1}});
-                if(node->right) q.push({node->right,{x+1,y+1}});
-                
-            
-        }
-       vector<vector<int>>ans;
-        for(auto i: m)
+        queue<pair<TreeNode*,pair<int,int>>>q;
+        vector<vector<int>>v;
+        map<int,map<int,multiset<int>>>mp;
+        if(root) q.push({root,{0,0}});
+        while(!q.empty())
         {
-            vector<int>v;
-            for(auto j: i.second)
-            {
-                v.insert(v.end(),j.second.begin(),j.second.end());
-            }
-            ans.push_back(v);
+            TreeNode* node=q.front().first;
+            int h=q.front().second.first;
+            int w=q.front().second.second;
+            q.pop();
+            mp[h][w].insert(node->val);
+            if(node->left) q.push({node->left,{h-1,w+1}});
+            if(node->right) q.push({node->right,{h+1,w+1}});
+            
         }
-        return ans;
+     for(auto i: mp)
+                                   {
+                                       vector<int>a;
+                                       for(auto j: i.second)
+                                       {
+                                           a.insert(a.end(),j.second.begin(),j.second.end());
+                                       }
+                                       v.push_back(a);
+                                   }
+                                   return v;
     }
 };
