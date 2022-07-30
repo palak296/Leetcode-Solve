@@ -1,12 +1,19 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int dp[n+1];
-        dp[0]=dp[1]=1;
+        int p,c,x;
+        p=c=1;
        for(int i=2; i<=n; i++){
-      dp[i] = dp[i-1]+ dp[i-2];
+     x=p+c;
+           p=c;
+           c=x;
+           
   }
-  cout<<dp[n];
-  return dp[n];
+ 
+  return c;
+        
+        
+        
+        
     }
 };
