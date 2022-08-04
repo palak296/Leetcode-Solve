@@ -1,19 +1,26 @@
 class Solution {
 public:
     int change(int a, vector<int>& c) {
+        if(a==0 ) return 1;
         int n=c.size();
-        vector<vector<int>>dp(n+1,vector<int>(a+1,-1));
-        return rec(a,c,n-1,dp);
-    }
-    int rec(int a, vector<int>&c, int n,vector<vector<int>>&dp)
-    {
-        if(n==0 ){
-            return a%c[0]==0;
+        vector<vector<int>>dp(n,vector<int>(a+1,0));
+        for(int i=0; i<=a; i++) 
+        {
+            dp[0][i] = (i%c[0]==0); 
         }
-       if(dp[n][a]!=-1) return dp[n][a];
-        int t=0;
-        if(c[n]<=a) t=rec(a-c[n],c,n,dp);
-        int nt=rec(a,c,n-1,dp);
-        return dp[n][a]=t+nt;
+        for(int i=1;i<n;i++)
+        {
+            
+            for(int j=0; j<=a; j++)
+            {
+                int dontpick = dp[i-1][j];               int pick = 0;
+                if(c[i]<=j)
+                {
+                    pick = dp[i][j-c[i]];
+                }
+                dp[i][j] = dontpick + pick;
+            }
+        }
+        return dp[n-1][a];
     }
 };
