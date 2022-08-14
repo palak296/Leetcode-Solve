@@ -14,23 +14,25 @@ public:
     }
     bool bfs(int node, vector<vector<int>>&graph, vector<int>&vis)
     {
-        vis[node]=1;
-        queue<int>q;
-        q.push(node);
+        vis[node]=0;
+        queue<pair<int,int>>q;
+        q.push({node,0});
             while(!q.empty())
             {
-                int n=q.front();
-                
+                int n=q.front().first;
+                int clr=q.front().second;
                 q.pop();
                 for(auto it: graph[n])
                 {
                     if(vis[it]==-1)
                     {
-                        vis[it]=1-vis[n];
-                        q.push(it);
+                        vis[it]=1-clr;
+                        q.push({it,1-clr});
                     }
-                    else if(vis[it]==vis[n]) return false;
-                    
+                    else
+                    {
+                        if(vis[it]==clr) return false;
+                    }
                 }
             }
         return true;
