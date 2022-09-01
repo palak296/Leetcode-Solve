@@ -1,43 +1,58 @@
 class Solution {
 public:
-    
-    
-    bool isvalid(int i,int j,int m,int n)
+    bool isvalid(int row,int col,vector<vector<int>>&mat)
     {
-        if(i==m||j==n||j<0||i<0)
+        if(row<0 or row>=mat.size() or col<0 or col>=mat[0].size())
+        {
             return false;
+        }
         return true;
     }
-    
-    vector<vector<int>> dir={{1,0},{0,1},{0,-1},{-1,0}};
-    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) 
-    {
-        queue<pair<int,int>> q;
-        int m=matrix.size();
-        int n=matrix[0].size();
-        vector<vector<int>> dis(m,vector<int>(n,-1));
-        for(int i=0;i<m;i++)
-            for(int j=0;j<n;j++)
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        int n=mat.size();
+        int m=mat[0].size();
+        vector<vector<bool>>vis(n,vector<bool>(m,false));           vector<vector<int>>dis(n,vector<int>(m,1));          queue<pair<pair<int,int>,int>>q;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
             {
-                if(matrix[i][j]==0)
-                { 
-                    q.push({i,j});
-                    dis[i][j]=0;
+                if(mat[i][j]==0)
+                {
+                    q.push({{i,j},0});
+                    vis[i][j]=true;
+                }else{
+                    vis[i][j]=0;
                 }
             }
+        }
+       
         while(!q.empty())
         {
-            pair<int,int> curr=q.front();
+            int row=q.front().first.first;
+            int col=q.front().first.second;
+            int steps=q.front().second;
             q.pop();
-            for(auto& x:dir)
+            dis[row][col]=steps;
+           
+             if(isvalid(row-1,col,mat)==true and vis[row-1][col]==false)
             {
-                int a=curr.first+x[0];
-                int b=curr.second+x[1];
-                if(isvalid(a,b,m,n)&&dis[a][b]==-1)
-                {
-                    q.push({a,b});
-                    dis[a][b]=dis[curr.first][curr.second]+1;
-                }
+                q.push({{row-1,col},steps+1});
+                vis[row-1][col]=true;
+            }
+            if(isvalid(row+1,col,mat)==true and vis[row+1][col]==false)
+            {
+                q.push({{row+1,col},steps+1});
+                vis[row+1][col]=true;
+            }
+            if(isvalid(row,col-1,mat)==true and vis[row][col-1]==false)
+            {
+                q.push({{row,col-1},steps+1});
+                vis[row][col-1]=true;
+            }
+            if(isvalid(row,col+1,mat)==true and vis[row][col+1]==false)
+            {
+                q.push({{row,col+1},steps+1});
+                vis[row][col+1]=true;
             }
         }
         return dis;
