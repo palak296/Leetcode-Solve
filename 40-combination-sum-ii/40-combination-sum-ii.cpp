@@ -35,5 +35,3 @@ public:
         cal(c,target,next_index,ds,n,ans);
     }
 };
-
-   
