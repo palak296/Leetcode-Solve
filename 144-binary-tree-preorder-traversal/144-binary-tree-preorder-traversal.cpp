@@ -11,38 +11,20 @@
  */
 class Solution {
 public:
-    vector<int> preorderTraversal(TreeNode* root) 
-    {
-        //morris traversal
-        
+    
+    
+    vector<int> preorderTraversal(TreeNode* root) {
         vector<int>v;
-        TreeNode* cur=root;
-        while(cur!=NULL)
-        {
-            if(cur->left==NULL)
-            {    v.push_back(cur->val);
-             cur=cur->right;
-             }
-            else{
-                TreeNode* prev=cur->left;
-                while(prev->right!=NULL and prev->right!=cur)
-                {
-                    prev=prev->right;
-                }
-                if(prev->right==NULL){
-                     v.push_back(cur->val);
-                    prev->right=cur; cur=cur->left;
-                }
-                else 
-                {
-                   
-                    prev->right=NULL;
-                    cur=cur->right;
-                }
-                    
-            }
-        
-        }
-            return v;
+        cal(v,root);
+        return v;
+       
+    }
+    void cal(vector<int>&v, TreeNode* root)
+    {
+         if(root==NULL) return ;
+        v.push_back(root->val);
+        cal(v,root->left);
+        cal(v,root->right);
+        return ;
     }
 };
