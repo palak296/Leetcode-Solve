@@ -12,17 +12,18 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-       return check(root)!=-1;
-    
-   
+        if(cal(root)==-1) return false;
+        return true;
     }
-  int check(TreeNode* root){
-    if(root==NULL) return 0;
-    int l=check(root->left);
+    int cal(TreeNode* root)
+    {
+        if(root==NULL) return 0;
+        int l=cal(root->left);
+        int r=cal(root->right);
+        if(l==-1 or r==-1) return -1;
+        if(abs(l-r)>1) return -1;
+        return max(l,r)+1;
+    
+    }
    
-    int r=check(root->right);
-    if(l==-1 or r==-1) return -1;
-    if(abs(l-r)>1) return -1;
-    return max(l,r)+1;
-  }
 };
