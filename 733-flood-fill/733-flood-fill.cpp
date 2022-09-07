@@ -1,29 +1,39 @@
 class Solution {
 public:
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        vector<vector<int>>vis=image;
-        int m=image.size();
-        int n=image[0].size();
-        
-               dfs(sr,sc,vis,image,image[sr][sc],color);
-           
-        return vis;
-    }
-    void dfs(int sr,int sc, vector<vector<int>>&vis, vector<vector<int>>&image,int oc, int tc)
+    void bfs(vector<vector<int>>& image,int sr, int sc, int newColor,int n,int m)
     {
-       // cout<<sr<<" "<<sc<<" ";
-        if(sr<0 or sc<0 or sr>=image.size() or sc>=image[0].size() or image[sr][sc]!=oc) return;
-        if(image[sr][sc]==oc and vis[sr][sc]!=tc)
+        queue<pair<int,int>>q;
+        q.push({sr,sc});
+        int color=image[sr][sc];
+        image[sr][sc]=newColor;
+        int dx[4]={0,0,1,-1};
+        int dy[4]={1,-1,0,0};
+        
+        while(!q.empty())
         {
-            
-            vis[sr][sc]=tc;
-           dfs(sr+1,sc,vis,image,oc,tc);
-             dfs(sr-1,sc,vis,image,oc,tc); 
-            dfs(sr,sc+1,vis,image,oc,tc);
-             dfs(sr,sc-1,vis,image,oc,tc);
+            int x=q.front().first;
+            int y=q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++)
+            {
+               int newX=x+dx[i];
+               int newY=y+dy[i];
+               if(newX>=0 && newY>=0 && newX<n && newY<m && image[newX][newY]==color)
+               {
+                   q.push({newX,newY});
+                   image[newX][newY]=newColor;
+               }
+                   
+            }
             
         }
         
-         
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        int n=image.size();
+        int m=image[0].size();
+        if(image[sr][sc]!=newColor)
+        bfs(image, sr, sc,  newColor,n,m);
+        return image;
     }
 };
