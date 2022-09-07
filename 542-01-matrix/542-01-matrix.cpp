@@ -11,7 +11,9 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int n=mat.size();
         int m=mat[0].size();
-        vector<vector<bool>>vis(n,vector<bool>(m,false));           vector<vector<int>>dis(n,vector<int>(m,1));          queue<pair<pair<int,int>,int>>q;
+        vector<vector<bool>>vis(n,vector<bool>(m,false));           
+        vector<vector<int>>dis(n,vector<int>(m,1));          
+        queue<pair<pair<int,int>,int>>q;
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
