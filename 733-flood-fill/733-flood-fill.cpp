@@ -1,14 +1,16 @@
 class Solution {
 public:
-    void bfs(vector<vector<int>>& image,int sr, int sc, int newColor,int n,int m)
-    {
-        queue<pair<int,int>>q;
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int m=image.size();
+        int n=image[0].size();
+        vector<vector<int>>dup=image;
+        int dir[]={-1,0,1,0,-1};
+        if(image[sr][sc]!=color)
+        {queue<pair<int,int>>q;
         q.push({sr,sc});
-        int color=image[sr][sc];
-        image[sr][sc]=newColor;
-        int dx[4]={0,0,1,-1};
-        int dy[4]={1,-1,0,0};
-        
+       
+        int oc=image[sr][sc];
+        dup[sr][sc]=color;
         while(!q.empty())
         {
             int x=q.front().first;
@@ -16,24 +18,19 @@ public:
             q.pop();
             for(int i=0;i<4;i++)
             {
-               int newX=x+dx[i];
-               int newY=y+dy[i];
-               if(newX>=0 && newY>=0 && newX<n && newY<m && image[newX][newY]==color)
-               {
-                   q.push({newX,newY});
-                   image[newX][newY]=newColor;
-               }
-                   
+                int r=x+dir[i];
+                int c=y+dir[i+1];
+                if(r>=0 && c>=0 && r<m && c<n && image[r][c]==oc and dup[r][c]!=color)
+                {
+                    dup[r][c]=color;
+                    q.push({r,c});
+                    
+                }
+                
+              
             }
-            
-        }
+        }}
         
-    }
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int n=image.size();
-        int m=image[0].size();
-        if(image[sr][sc]!=newColor)
-        bfs(image, sr, sc,  newColor,n,m);
-        return image;
+        return dup;
     }
 };
