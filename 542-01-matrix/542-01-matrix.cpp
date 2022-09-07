@@ -12,7 +12,7 @@ public:
         int n=mat.size();
         int m=mat[0].size();
         vector<vector<bool>>vis(n,vector<bool>(m,false));           
-        vector<vector<int>>dis(n,vector<int>(m,1));          
+        vector<vector<int>>dis(n,vector<int>(m,0));          
         queue<pair<pair<int,int>,int>>q;
         for(int i=0;i<n;i++)
         {
