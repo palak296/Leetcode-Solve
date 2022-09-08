@@ -1,16 +1,11 @@
-
 class Solution {
 public:
-    int rob(vector<int>& v) {
-        int n=v.size();
-        vector<int>dp(n,-1);
-        return rec(v,v.size()-1,dp);
-    }
-    int rec(vector<int>&v, int i,vector<int>&dp){
-        if(i<0) return 0;
-        if(dp[i]!=-1) return dp[i];
-        int l=rec(v,i-2,dp)+v[i];
-        int r=rec(v,i-1,dp);
-        return dp[i]=max(l,r);
+    int rob(vector<int>& A) {
+        if(size(A) == 1) return A[0];
+        vector<int> dp(A);
+        dp[1] = max(A[0], A[1]);
+        for(int i = 2; i < size(A); i++)
+            dp[i] = max(dp[i-1], A[i] + dp[i-2]);
+        return dp.back();
     }
 };
