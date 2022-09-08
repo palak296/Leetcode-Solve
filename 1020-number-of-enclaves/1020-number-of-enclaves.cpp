@@ -1,48 +1,37 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>&g, int i, int j)
-    {
-        
-        if(i<0 or j<0 or i>g.size()-1 or j>g[0].size()-1 )
-            return ;
-        if(g[i][j]!=1) return;
-        g[i][j]=0;
-        dfs(g,i+1,j);
-        dfs(g,i-1,j);
-        dfs(g,i,j+1);
-        dfs(g,i,j-1);
-    }
-     int numEnclaves(vector<vector<int>>& g) {
-        int n = g.size();
-        int m = g[0].size();
-        int c = 0;
-        for(int i=0;i<n;i++){
-            if(g[i][0] == 1){
-                dfs(g,i,0);
-            }
-        }
-        for(int i=0;i<m;i++){
-            if(g[0][i] == 1){
-                dfs(g,0,i);
-            }
-        }
-        for(int i=0;i<n;i++){
-            if(g[i][m-1] == 1){
-                dfs(g,i,m-1);
-            }
-        }
-        for(int i=0;i<m;i++){
-            if(g[n-1][i] == 1){
-                dfs(g,n-1,i);
-            }
-        }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(g[i][j] == 1){
-                    c++;
-                }
-            }
-        }
-        return c;
-    }
+int ct = 0;
+
+void dfs(vector<vector<int>>& grid, int i, int j, int n, int m) {
+	if (i < 0 || j < 0 || i >= n || j >= m) return;
+	if (grid[i][j] != 1) return;
+	grid[i][j] = 0;
+	ct++;
+	dfs(grid, i - 1, j, n, m);
+	dfs(grid, i + 1, j, n, m);
+	dfs(grid, i, j - 1, n, m);
+	dfs(grid, i, j + 1, n, m);
+}
+
+int numEnclaves(vector<vector<int>>& grid) {
+	int n = grid.size();
+	int m = grid[0].size();
+	for (int i = 0; i < n; ++i) {
+		if (grid[i][0] == 1) dfs(grid, i, 0, n, m);
+		if (grid[i][m - 1] == 1) dfs(grid, i, m - 1, n, m);
+	}
+	for (int i = 0; i < m; ++i) {
+		if (grid[0][i] == 1) dfs(grid, 0, i, n, m);
+		if (grid[n - 1][i] == 1) dfs(grid, n - 1, i, n, m);
+	}
+				ct = 0;
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < m; ++j) {
+			if (grid[i][j] == 1) {
+				dfs(grid, i, j, n, m);
+			}
+		}
+	}
+	return ct;
+}
 };
